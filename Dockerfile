@@ -8,7 +8,7 @@ RUN apt-get update \
         gnupg \
         software-properties-common \
     && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF \
-    && apt-add-repository "deb https://download.mono-project.com/repo/ubuntu stable-bionic main" \
+    && apt-add-repository "deb https://download.mono-project.com/repo/ubuntu stable-bionic/snapshots/5.14 main" \
     && add-apt-repository ppa:obsproject/obs-studio \
 	&& apt-get update \
 	&& apt-get install -yq \
@@ -46,6 +46,9 @@ ADD obs/global.ini .config/obs-studio/global.ini
 ADD obs/scene.json .config/obs-studio/basic/scenes/Untitled.json
 ADD obs/twitch.ini .config/obs-studio/basic/profiles/Twitch/basic.ini
 ADD obs/twitch.json service_template.json
+
+RUN mkdir /data
+RUN chown -R pablo:pablo /data
 
 VOLUME /data
 EXPOSE 5801
